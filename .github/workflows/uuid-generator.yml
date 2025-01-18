@@ -1,0 +1,18 @@
+name: UUID Generator
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-uuid:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate UUID
+        run: |
+          uuid=$(cat /proc/sys/kernel/random/uuid)
+          echo "Generated UUID: $uuid" > uuid.md
+      - name: Commit UUID to Repository
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update UUID"
+          branch: main
